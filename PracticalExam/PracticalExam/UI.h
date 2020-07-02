@@ -8,34 +8,32 @@
 class UI
 {
 private:
-	Controller controller;
+	Controller* controller;
 
 public:
-	UI();
+	UI(Controller* controller);
 	~UI();
 
 
-	void printOption();
-	void uiAddEmployee();
-	void uiRemoveEmployee();
+	void printOptions();
 	/*
 	D: Adds an employee to the controller's repo repository
 	I: A pointer to the employee to be added
 	O: A message stating if the employee was added or not 
 	*/
-	void addEmployee(Employee* employee, int type);
+	void addEmployee();
 	
 	/*
 	D: Removes an employee form the controller's repo repository
 	I: A pointer to the employee to be removed
 	O: A message stating if the employee was removed or not
 	*/
-	void removeEmployee(int index);
+	void removeEmployee();
 
 	/*
-	D: Displays all employees whose name contains a certain substring
-	I: A string chosen by the client
-	O: Displays the employees containing that string or all employees if the string chose is empty
+	D: Asks for a name pattern and displays the employees matching that pattern
+	I: -
+	O: -
 	*/
-	//void displayEmployeesContainingSubstring();
+	void displayEmployeesFilteredByNameAndSortedByYear();
 };

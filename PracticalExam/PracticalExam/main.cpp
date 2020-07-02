@@ -1,11 +1,12 @@
-#include "Employee.h"
 #include "EmployeeRepo.h"
-#include <iostream>
+#include "Controller.h"
+#include "UI.h"
 
 int main()
 {
-	Employee* emp1 = new Employee(1, "Adam", 1999, MANAGER);
-	std::cout << emp1->getID();
+    Controller ctrl = Controller(EmployeeRepo());
+    UI ui = UI(&ctrl);
+    ui.printOptions();
 	
 	return 0;
 }	

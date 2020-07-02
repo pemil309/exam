@@ -1,15 +1,15 @@
+#pragma once
 #include "EmployeeRepo.h"
-#include "Employee.h"
+#include "Employee/Employee.h"
 #include <vector>
 #include <string>
 
 class Controller {
-public:
+private:
     EmployeeRepo repo;
-    EmployeeRepo substring;
-
-    Controller(EmployeeRepo repo, EmployeeRepo substring);
-    Controller();
+    
+public:
+    Controller(EmployeeRepo repo);
     ~Controller();
 
     //loads employees into the repository
@@ -20,7 +20,7 @@ public:
     I: A pointer to the employee to be added
     O: True if the employee was added succesfully, false if the employee was already in the repository
     */
-    bool addEmployee(Employee* employee, int type);
+    bool addEmployee(Employee* employee);
 
     /*
     D: Adds an employee to the repo repository
@@ -37,11 +37,18 @@ public:
     bool addPartTimeEmployee(Employee* employee);
 
     /*
-    D: Removes an employee from the repo repository
-    I: The index of the employee to be removed
-    O: True if the employee was removed succesfully, false if the employee was not in the repository
+    D: Checks if there's an employee with the specified ID
+    I: The ID of the employee
+    O: True if the employee exists, otherwise false
     */
-    bool removeEmployee(int index);
+    bool hasEmployee(int id);
+
+    /*
+    D: Removes an employee from the repo repository
+    I: The ID of the employee to be removed
+    O: -
+    */
+    void removeEmployee(int id);
 
     /*
     D: Gives a string representation of the object found at a certain index in the repo repository
@@ -51,9 +58,9 @@ public:
     bool displayEmployee(std::string* display, int index);
 
     /*
-    D: Displays all employees whose name contains the substring ss
-    I: The string ss
+    D: Displays all employees whose name contains the specified pattern
+    I: The string pattern
     O: -
     */
-    void displayEmployeesContainingSubstring(std::string ss);
+    std::vector<Employee*> filterEmployeesByName(std::string pattern);
 };
