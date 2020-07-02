@@ -1,4 +1,4 @@
-#include "../Employee.h"
+#include "Employee.h"
 
 class InternEmployee : public Employee
 {

@@ -3,7 +3,7 @@
 #include <vector>
 #include <string>
 
-#include "Employee.h"
+#include "Employee/Employee.h"
 
 class EmployeeRepo
 {
@@ -53,8 +53,8 @@ public:
 
 	/*
 	D: Removes an employee from the repository
-	I: An integer index
-	O: True if the employee was removed, false otherwise
+	I: The ID of the employee
+	O: -
 	*/
-	bool remove(int index);
+	void remove(int id);
 };

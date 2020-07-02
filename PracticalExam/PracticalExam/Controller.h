@@ -1,13 +1,14 @@
 #pragma once
 #include "EmployeeRepo.h"
-#include "Employee.h"
+#include "Employee/Employee.h"
 #include <vector>
 #include <string>
 
 class Controller {
-public:
+private:
     EmployeeRepo repo;
-
+    
+public:
     Controller(EmployeeRepo repo);
     ~Controller();
 
@@ -36,11 +37,18 @@ public:
     bool addPartTimeEmployee(Employee* employee);
 
     /*
-    D: Removes an employee from the repo repository
-    I: The index of the employee to be removed
-    O: True if the employee was removed succesfully, false if the employee was not in the repository
+    D: Checks if there's an employee with the specified ID
+    I: The ID of the employee
+    O: True if the employee exists, otherwise false
     */
-    bool removeEmployee(int index);
+    bool hasEmployee(int id);
+
+    /*
+    D: Removes an employee from the repo repository
+    I: The ID of the employee to be removed
+    O: -
+    */
+    void removeEmployee(int id);
 
     /*
     D: Gives a string representation of the object found at a certain index in the repo repository
@@ -54,5 +62,5 @@ public:
     I: The string pattern
     O: -
     */
-    std::vector<Employee> filterEmployeesByName(std::string pattern);
+    std::vector<Employee*> filterEmployeesByName(std::string pattern);
 };

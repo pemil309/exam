@@ -33,13 +33,15 @@ bool EmployeeRepo::add(Employee* employee)
     return true;
 }
 
-bool EmployeeRepo::remove(int index)
+void EmployeeRepo::remove(int id)
 {
-    if(index < 0 || index >= this->employees.size())
-        return false;
+    uint32_t count = this->employees.size();
+    bool found = false;
+    while(!found && count--)
+        found = this->employees.at(count)->getID() == id;
 
-    this->employees.erase(employees.begin() + index);
-    return true;
+    if(found)
+        this->employees.erase(employees.begin() + count);
 }
 
 bool EmployeeRepo::contains(int id)
@@ -50,4 +52,8 @@ bool EmployeeRepo::contains(int id)
 			return true;
 
 	return false;
+}
+
+std::vector<Employee*> EmployeeRepo::getList() {
+    return std::vector<Employee*>(this->employees);
 }

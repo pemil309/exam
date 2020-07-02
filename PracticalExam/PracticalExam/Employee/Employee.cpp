@@ -22,11 +22,10 @@ Employee::~Employee()
 
 bool Employee::operator==(const Employee& other)
 {
-	if (this->id == other.id)
-		if (this->name == other.name)
-			if (this->year == other.year)
-				return true;
-	return false;
+    return 
+        this->id == other.id &&
+        this->name == other.name && 
+        this->year == other.year;
 }
 
 int Employee::getID()

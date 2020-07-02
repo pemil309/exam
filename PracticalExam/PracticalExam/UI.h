@@ -15,27 +15,25 @@ public:
 	~UI();
 
 
-	void printOption();
-	void uiAddEmployee();
-	void uiRemoveEmployee();
+	void printOptions();
 	/*
 	D: Adds an employee to the controller's repo repository
 	I: A pointer to the employee to be added
 	O: A message stating if the employee was added or not 
 	*/
-	void addEmployee(Employee* employee);
+	void addEmployee();
 	
 	/*
 	D: Removes an employee form the controller's repo repository
 	I: A pointer to the employee to be removed
 	O: A message stating if the employee was removed or not
 	*/
-	void removeEmployee(int index);
+	void removeEmployee();
 
 	/*
-	D: Displays all employees whose name contains a certain substring
+	D: Asks for a name pattern and displays the employees matching that pattern
 	I: -
-	O: Displays the employees containing filtered by a name pattern
+	O: -
 	*/
-	void displayFilteredEmployees();
+	void displayEmployeesFilteredByNameAndSortedByYear();
 };

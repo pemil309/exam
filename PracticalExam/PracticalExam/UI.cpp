@@ -1,8 +1,11 @@
 #include "UI.h"
 #include "Employee/InternEmployee.h"
 #include "Employee/PartTimeEmployee.h"
+#include <algorithm>
 
 int read_int();
+void read_string(std::string* str);
+bool sort_by_year(Employee* a, Employee* b);
 
 UI::UI(Controller* controller)
 {
@@ -13,7 +16,7 @@ UI::~UI()
 {
 }
 
-void UI::printOption()
+void UI::printOptions()
 {
 	char op;
 	while (true)
@@ -30,13 +33,13 @@ void UI::printOption()
 		switch (op)
 		{
 			case 'a':
-				this->uiAddEmployee();
+				this->addEmployee();
 				break;
 			case 'r':
-				this->uiRemoveEmployee();
+				this->removeEmployee();
 				break;
 			case 'd':
-				this->displayFilteredEmployees();
+				this->displayEmployeesFilteredByNameAndSortedByYear();
 				break;
 			case 'l':
 				this->controller->loadEmployees();
@@ -51,7 +54,7 @@ void UI::printOption()
 	}
 }
 
-void UI::uiAddEmployee()
+void UI::addEmployee()
 {	
     std::cout << "Employee type: " << "\n";
     std::cout << "1. Full-time employee" << "\n";
@@ -113,6 +116,7 @@ void UI::uiAddEmployee()
 
     int duration = -1;
     if(type == 2) {
+	    std::cout << "Working hours: " << "\n";
         while(duration == -1) {
             duration = read_int();
             if(duration == -1) {
@@ -122,6 +126,7 @@ void UI::uiAddEmployee()
         }
     }
     else if(type == 3) {
+	    std::cout << "Internship duration (years): " << "\n";
         while(duration == -1) {
             duration = read_int();
             if(duration == -1) {
@@ -138,10 +143,10 @@ void UI::uiAddEmployee()
         employee = new Employee(id, name, year, position);
         break;
     case 2:
-        employee = new InternEmployee(id, name, year, position, duration);
+        employee = new PartTimeEmployee(id, name, year, position, duration);
         break;
     case 3:
-        employee = new PartTimeEmployee(id, name, year, position, duration);
+        employee = new InternEmployee(id, name, year, position, duration);
         break;
     default:
         break;
@@ -159,27 +164,85 @@ void UI::uiAddEmployee()
 
 }
 
-void UI::uiRemoveEmployee()
+void UI::removeEmployee()
 {
-	int index;
-	std::cout << "Please give the index of the employee you want to remove: ";
-	std::cin >> index;
-	if (!this->controller->removeEmployee(index - 1))
-		std::cout << '\n' << "Operation failed!" << '\n';
-	else
-		std::cout << '\n' << "Operation succesful!" << '\n';
+	std::cout << "Employee's ID: ";
+    int id = -1;
+    while(id == -1) {
+        id = read_int();
+        if(id == -1) {
+            std::cout << "Please input a number.\n";
+            continue;
+        }
+    }
+
+    bool exists = this->controller->hasEmployee(id);
+    if(exists) {
+        std::string id_str;
+        bool should_delete = false;
+        id_str = std::cin.get();
+        while(true) {
+            std::cout << "Are you sure you want to remove this employee? ";
+            id_str = std::cin.get();
+            should_delete = id_str == "y";
+            break;
+            // if(id_str == "y") {
+            //     should_delete = true;
+            //     break;
+            // } else if(id_str == "n") {
+            //     should_delete = false;
+            //     break;
+            // }
+        }
+
+        if(should_delete) {
+	        this->controller->removeEmployee(id);
+            std::cout << "The employee has been removed." << "\n";
+        } else {
+            std::cout << "Removal operation canceled." << "\n";
+        }
+    } else {
+        std::cout << "There's no employee matching that ID." << "\n";
+    }
+
+    while(true) {
+        std::cin.get();
+        break;
+    }
 }
 
-void UI::addEmployee(Employee* employee)
+void UI::displayEmployeesFilteredByNameAndSortedByYear()
 {
-	if (!this->controller->addEmployee(employee))
-		std::cout << "This employee is already in the list";
+	std::string filter;
+	std::cout << "What substring do you want to add?" << "\n";
+    read_string(&filter);
+
+    std::string output;
+    std::string employee_str;
+    
+    std::vector<Employee*> filteredEmployees = this->controller->filterEmployeesByName(filter);
+	std::sort(filteredEmployees.begin(), filteredEmployees.end(), sort_by_year);
+    
+    uint32_t count = filteredEmployees.size();
+    if(count > 0) {
+        for (uint32_t i = 0; i < count; i++) {
+            filteredEmployees.at(i)->toString(&employee_str);
+            output.append(employee_str);
+            output.append("\n");
+        }
+    }
+    else
+        output = "No employees found matching the specified pattern..";
+
+    std::cout << output;
+    while(true) {
+        filter = std::cin.get();
+        break;
+    }
 }
 
-void UI::removeEmployee(int index)
-{
-	if (!this->controller->removeEmployee(index))
-		std::cout << "This employee is not in the list";
+bool sort_by_year(Employee* a, Employee* b) {
+    return a->getYear() < b->getYear();
 }
 
 int read_int() {
@@ -205,27 +268,4 @@ void read_string(std::string* str) {
         else
             str->append(in);
     }
-}
-
-void UI::displayFilteredEmployees()
-{
-	std::string filter;
-	std::cout << "What substring do you want to add?" << "\n";
-    read_string(&filter);
-    
-    if(filter.empty())
-        std::cout << "\n" << "Display everything" << "\n";
-    else
-        std::cout << "\n" << "Filter is:" << filter << "\n";
-
-    std::cin >> filter;
-    this->controller->filterEmployeesByName(filter);
-	
-	// int unsigned iterator = 0;
-	// while (iterator < this->ClientController.repo.vector.size()) {
-	// 	int i = (int)this->ClientController.repo.vector.at(iterator)->getGenre();
-	// 	if (genre == genreToString[i])
-	// 		uiDisplayBook(iterator, bookList);
-	// 	iterator++;
-	// }
 }
