@@ -1,13 +1,13 @@
 #include "EmployeeRepo.h"
 
-EmployeeRepo::EmployeeRepo(std::vector<Employee*> vector)
+EmployeeRepo::EmployeeRepo(std::vector<Employee*> employees)
 {
-	this->vector = vector;
+	this->employees = employees;
 }
 
 EmployeeRepo::EmployeeRepo()
 {
-
+    
 }
 
 EmployeeRepo::~EmployeeRepo()
@@ -17,41 +17,37 @@ EmployeeRepo::~EmployeeRepo()
 
 bool EmployeeRepo::displayEmployee(std::string* display, int index)
 {
-	if (index >= 0 && index <= this->vector.size())
-		this->vector.at(index)->toString(display);
-	else
-		return 0;
-	return 1;
+    if(index < 0 || index >= this->employees.size())
+        return false;
+
+    this->employees.at(index)->toString(display);
+	return true;
 }
 
 bool EmployeeRepo::add(Employee* employee)
 {
-	if (search(employee) == -1)
-	{
-		this->vector.push_back(employee);
-		return 1;
-	}
-	else
-		return 0;
+	if (contains(employee->getID()))
+        return false;
+
+    this->employees.push_back(employee);
+    return true;
 }
 
 bool EmployeeRepo::remove(int index)
 {
-	if (index >= 0 && index <= this->vector.size())
-	{
-		this->vector.erase(vector.begin() + index);
-		return 1;
-	}
-	return 0;
+    if(index < 0 || index >= this->employees.size())
+        return false;
+
+    this->employees.erase(employees.begin() + index);
+    return true;
 }
 
-bool EmployeeRepo::search(Employee* employee)
-{	
-	unsigned int i;
-	for (i = 0; i < this->vector.size(); i++)
-	{
-		if (*employee == *this->vector.at(i))
-			return i;
-	}
-	return -1;
+bool EmployeeRepo::contains(int id)
+{
+    int len = this->employees.size();
+	for (uint32_t i = 0; i < len; i++)
+		if (id == this->employees.at(i)->getID())
+			return true;
+
+	return false;
 }

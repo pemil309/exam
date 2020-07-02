@@ -1,0 +1,3 @@
+#!/bin/bash
+
+g++ -g main.cpp Controller.cpp Employee.cpp EmployeeRepo.cpp UI.cpp Employee/InternEmployee.cpp Employee/PartTimeEmployee.cpp -o app

@@ -35,29 +35,5 @@ public:
 	I: A string str
 	O: The formatted text stored in the string str
 	*/
-	void toString(std::string* str);
+	virtual void toString(std::string* str);
 };
-
-//class InternEmployee : public Employee
-//{
-//public:
-//	InternEmployee(int id, std::string name, int year, Position position, int internshipDuration);
-//
-//	void toString(std::string* str);
-//
-//	int getInternshipDuration();
-//private:
-//	int internshipDuration;
-//};
-//
-//class PartTimeEmployee : public Employee
-//{
-//public:
-//	PartTimeEmployee(int id, std::string name, int year, Position position, int workingHour);
-//
-//	void toString(std::string* str);
-//
-//	int getWorkingHour();
-//private:
-//	int workingHour;
-//};

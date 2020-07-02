@@ -7,10 +7,12 @@
 
 class EmployeeRepo
 {
-public:
-	std::vector<Employee*> vector;
+private:
+    std::vector<Employee*> employees;
 
-	EmployeeRepo(std::vector<Employee*> vector);
+public:
+
+	EmployeeRepo(std::vector<Employee*> employees);
 	EmployeeRepo();
 	~EmployeeRepo();
 
@@ -28,17 +30,31 @@ public:
 	*/
 	bool add(Employee* employee);
 
+    /*
+	D: Searches for an employee by id
+	I: The employee's id
+	O: True if the employee was found, false otherwise
+	*/
+	bool contains(int id);
+
+    /*
+	D: Returns a pointer to an employee
+	I: The employee's id
+	O: Pointer to the employee if found, null otherwise
+	*/
+	Employee* get(int id);
+
+    /*
+	D: Returns a list of employees
+	I: -
+	O: A list of employees
+	*/
+	std::vector<Employee*> getList();
+
 	/*
 	D: Removes an employee from the repository
 	I: An integer index
 	O: True if the employee was removed, false otherwise
 	*/
 	bool remove(int index);
-
-	/*
-	D: Searches for an employee in the repository
-	I: A pointer to the employee to be searched for
-	O: True if the employee was found, false otherwise
-	*/
-	bool search(Employee* employee);
 };
