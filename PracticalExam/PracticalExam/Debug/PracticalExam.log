@@ -1,0 +1,15 @@
+﻿  Controller.cpp
+C:\Users\emilp\source\repos\PracticalExam\PracticalExam\Controller.cpp(67,21): warning C4018: '<=': signed/unsigned mismatch
+C:\Users\emilp\source\repos\PracticalExam\PracticalExam\Controller.cpp(75,21): warning C4018: '<=': signed/unsigned mismatch
+C:\Users\emilp\source\repos\PracticalExam\PracticalExam\Controller.cpp(82,20): warning C4018: '<=': signed/unsigned mismatch
+  Employee.cpp
+  EmployeeRepo.cpp
+C:\Users\emilp\source\repos\PracticalExam\PracticalExam\EmployeeRepo.cpp(20,26): warning C4018: '<=': signed/unsigned mismatch
+C:\Users\emilp\source\repos\PracticalExam\PracticalExam\EmployeeRepo.cpp(29,28): warning C4806: '==': unsafe operation: no value of type 'bool' promoted to type 'int' can equal the given constant
+C:\Users\emilp\source\repos\PracticalExam\PracticalExam\EmployeeRepo.cpp(40,26): warning C4018: '<=': signed/unsigned mismatch
+C:\Users\emilp\source\repos\PracticalExam\PracticalExam\EmployeeRepo.cpp(56,11): warning C4305: 'return': truncation from 'int' to 'bool'
+  main.cpp
+  UI.cpp
+  Generating Code...
+C:\Users\emilp\source\repos\PracticalExam\PracticalExam\Controller.cpp(42): warning C4715: 'Controller::addEmployee': not all control paths return a value
+  PracticalExam.vcxproj -> C:\Users\emilp\source\repos\PracticalExam\Debug\PracticalExam.exe
